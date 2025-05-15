@@ -33,15 +33,18 @@ async function getLatestCommitSha() {
 function deployFolders(folderList) {
   folderList.forEach((folder) => {
     const folderPath = path.join(folder);
+    const splitted = folder.split("/")
+    const folderName = splitted[splitted.length];
+
     console.log(`⬇ Pulling & building ${folderPath}`);
     try {
       execSync(`git pull`, { cwd: folderPath, stdio: "inherit" });
       execSync(`npm install`, { cwd: folderPath, stdio: "inherit" });
       execSync(`npm run build`, { cwd: folderPath, stdio: "inherit" });
-      execSync(`pm2 restart ${folder}`, { stdio: "inherit" });
-      console.log(`✅ ${folder} selesai`);
+      execSync(`pm2 restart ${folderName}`, { stdio: "inherit" });
+      console.log(`✅ ${folderName} selesai`);
     } catch (err) {
-      console.error(`❌ Gagal deploy ${folder}:`, err.message);
+      console.error(`❌ Gagal deploy ${folderName}:`, err.message);
     }
   });
 }
