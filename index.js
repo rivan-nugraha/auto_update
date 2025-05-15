@@ -33,8 +33,11 @@ async function getLatestCommitSha() {
 function deployFolders(folderList) {
   folderList.forEach((folder) => {
     const folderPath = path.join(folder);
-    const splitted = folder.split("/")
-    const folderName = splitted[splitted.length];
+    const splitted = folder.split("/");
+    console.log(splitted.length);
+    const folderName = splitted[splitted.length - 1];
+    console.log(splitted);
+    console.log(folderName);
 
     console.log(`⬇ Pulling & building ${folderPath}`);
     try {
